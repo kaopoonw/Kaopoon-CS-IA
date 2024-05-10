@@ -1,0 +1,6 @@
+Getting sensor data from MyEyedro into database:
+  Scheduler: schedule https://eyedro.com/eyefi-getdata-api-command-sample-code/ (gets API from Myeeyedro) to run periodically. 
+  Transfer data to database
+
+  In python
+  Host on pythonanywhere cloud
