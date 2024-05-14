@@ -4,3 +4,8 @@ Getting sensor data from MyEyedro into database:
 
   In python
   Host on pythonanywhere cloud
+
+
+
+Research for scheduler using python Crontab https://www.zuar.com/blog/automate-the-execution-of-python-scripts-with-cron/#:~:text=First%2C%20create%20your%20Python%20script,to%20input%20your%20schedule%20command.
+Installing python crontab
