@@ -1,11 +1,67 @@
-Getting sensor data from MyEyedro into database:
-  Scheduler: schedule https://eyedro.com/eyefi-getdata-api-command-sample-code/ (gets API from Myeeyedro) to run periodically. 
-  Transfer data to database
+# import libraries
+import http
+import json
+import apscheduler  # fix if don't need all
+import datetime
+import time
+import requests
 
-  In python
-  Host on pythonanywhere cloud
+# define variables (getadataurl, cloud server url)
+
+getdata_url = f'http://192.168.2.77:8080/getdata'
+getdata_url_test = f'https://www.digitalocean.com/'
+getdata_url_test2 = f'https://postman-echo.com/get'
+cloud_receive = ...
 
 
+# Get data from API
 
-Research for scheduler using python Crontab https://www.zuar.com/blog/automate-the-execution-of-python-scripts-with-cron/#:~:text=First%2C%20create%20your%20Python%20script,to%20input%20your%20schedule%20command.
-Installing python crontab
+def request_data():
+    energy_sum: float = 0
+    for i in range(120):  # loop for 10 minutes
+        time.sleep(5)  # pause for 5 seconds
+        response = requests.get(getdata_url_test)
+        if response:  # evaluates true if sends back code 200
+            data = response.json()
+            energy = (data[0][3] + data[1][3] + data[2][3]) * 5  # calculates combined energy from each phase sensor
+            energy_sum += energy
+        else:
+            print('Error')
+            # see if to add anything here for error checking
+    return energy_sum
+
+#question: send time from server or record in cloud
+
+# send to cloud
+
+def send_data(energy_sum):
+    response = requests.post(cloud_receive, json=energy_sum)
+    if not response:
+        print('Error')
+
+
+# initialize energy sum to be sent to cloud
+
+while True:
+
+    # initialize energy sum
+    energy_sum: int = 0
+
+    for i in range(1, 120):
+        # fetch data from url
+
+        # convert json to python (store in power var)
+
+        power = ...  # get from json
+
+        # Multiple power with 5 sec to get energy and add to sum
+        energy = power * 5
+        energy_sum += energy
+
+        # wait 5 sec
+        time.sleep(5)
+
+    # send energy sum and datetime to cloud
+
+# end
+
